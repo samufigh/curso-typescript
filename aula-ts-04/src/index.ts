@@ -19,14 +19,18 @@ function showResult(result: number) {
 }
 
 (() => {
-    const num1 = prompt("First Number");
-    const num2 = prompt("Second Number");
-    
-    if (typeof num1 === 'number' && typeof num2 === 'number'){
-        let result = sum(num1,num2);
+    const num1 = Number(prompt("First Number"));
+    const num2 = Number(prompt("Second Number"));
+
+    if (!num1 || !num1){
+        console.log("enter the 2 numbers")
+    } else {
+        if (!isNaN(Number(num1)) && !isNaN(Number(num1))){
+        let result = sum(Number(num1),Number(num2));
         result += multiply(1,2);
         showResult(result);
     } else {
         console.log("impossible to execute the function with these inputs")
     }
+}
 })();
