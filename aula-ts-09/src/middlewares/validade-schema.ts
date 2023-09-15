@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { Music } from "protocols";
+import { ObjectSchema } from "joi";
 
-export function validateSchema(schema :any){
-    return(req: Request,res: Response,next: NextFunction)=>{
+export function validateSchema(schema :ObjectSchema){
+    return(req: Request, res: Response,next: NextFunction)=>{
         const validation = schema.validate( req.body, {abortEarly:false})
 
         if(validation.error){
