@@ -17,8 +17,10 @@ app.post("/games", (req: Request, res: Response) => {
   }
 });
 
-app.get("/games", (req: Request, res: Response) => {
-  const games = gamesService.getGames();
+app.get("/games", async (req: Request, res: Response) => {
+  const games = await gamesService.getGames();
+
+  console.log(games)
   res.send(games);
 });
 

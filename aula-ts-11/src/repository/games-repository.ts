@@ -1,25 +1,28 @@
-import { Game } from "../protocols/game-protocol";
-import { connection } from "database/database-connection";
+import { CreateGame, Game } from "../protocols/game-protocol";
+import { connection } from "../database/database-connection";
 
 //const games: Game[] = [];
 
-function getGames() {
-  return connection.query<Game[]>(`
+async function getGames() {
+  return connection.query<Game>(`
     SELECT * FROM games;
   `);
 }
 
-function createGame(game: Game) {
-  return connection.query(`
+async function createGame(game: CreateGame) {
+  return connection.query<CreateGame>(`
     INSERT INTO games (title, platform) VALUES ($1, $2);
   `, [game.title, game.platform])
 }
 
-function getGameByTitleAndPlatform(game: Game) {
-  return connection.query<Game>(`
+async function getGameByTitleAndPlatform(game: Game) {
+  const resultGame = await connection.query<Game>(`
     SELECT * FROM games 
     WHERE title = $1 AND platform = $2;
   `, [game.title, game.platform])
+
+  //console.log(resultGame.rowCount)
+  return resultGame.rows
 }
 
 const gamesRepository = {
